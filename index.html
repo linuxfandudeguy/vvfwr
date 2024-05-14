@@ -53,24 +53,25 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="redirector">
         <script>
             // Get URL parameters using URLSearchParams
-            var urlParams = new URLSearchParams(window.location.search);
-            var urlParam = urlParams.get('URL');
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlParam = urlParams.get('url');
 
             if (urlParam) {
                 window.location.href = urlParam;
             } else {
-                document.write("<h1>Oops! Where to next?</h1>");
-                document.write("<p>Please enter a URL:</p>");
-                document.write('<input type="text" id="urlInput" placeholder="Enter URL">');
-                document.write('<button onclick="redirectToEnteredURL()">Go</button>');
+                const container = document.getElementById("redirector");
+                container.innerHTML = "<h1>Oops! Where to next?</h1>" +
+                    "<p>Please enter a URL:</p>" +
+                    '<input type="text" id="urlInput" placeholder="Enter URL">' +
+                    '<button onclick="redirectToEnteredURL()">Go</button>';
 
                 function redirectToEnteredURL() {
-                    var enteredURL = document.getElementById("urlInput").value;
+                    const enteredURL = document.getElementById("urlInput").value;
                     if (enteredURL.trim() !== "") {
-                        window.location.href = window.location.pathname + "?URL=" + encodeURIComponent(enteredURL);
+                        window.location.href = window.location.pathname + "?url=" + encodeURIComponent(enteredURL);
                     } else {
                         alert("Please enter a valid URL!");
                     }
