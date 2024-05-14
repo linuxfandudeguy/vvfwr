@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <script>
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+
+            var urlParam = getParameterByName('URL');
+
+            if (urlParam) {
+                window.location.href = urlParam;
+            } else {
+                document.write("<h1>Oops! Where to next?</h1>");
+                document.write("<p>Please enter a URL:</p>");
+                document.write('<input type="text" id="urlInput" placeholder="Enter URL">');
+                document.write('<button onclick="redirectToEnteredURL()">Go</button>');
+
+                function redirectToEnteredURL() {
+                    var enteredURL = document.getElementById("urlInput").value;
+                    if (enteredURL.trim() !== "") {
+                        window.location.href = enteredURL;
+                    } else {
+                        alert("Please enter a valid URL!");
+                    }
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>
